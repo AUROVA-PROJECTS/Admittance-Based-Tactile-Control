@@ -1,306 +1,513 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
-  <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="Grasping Force Estimation in Markerless Visuo-Tactile Sensors">
-  <meta property="og:title" content="Grasping Force Estimation in Markerless Visuo-Tactile Sensors"/>
-  <meta property="og:description" content="Grasping Force Estimation in Markerless Visuo-Tactile Sensors"/>
-  <meta property="og:url" content="URL OF THE WEBSITE"/>
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
-  <meta property="og:image" content="static/images/EKFdiagramICINCO.png" />
-  <meta property="og:image:width" content="856"/>
-  <meta property="og:image:height" content="515"/>
 
-  <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="Target Tracking, Autonomous Vehicles, Robot Sensing Systems, Real-Time Systems">
+  <!-- =========================================================
+       Paper metadata
+       ========================================================= -->
+  <meta name="description"
+        content="Admittance-Based Tactile Control with Adaptive Forward Velocity for 3D Surface Tracking">
+  <meta property="og:title"
+        content="Admittance-Based Tactile Control with Adaptive Forward Velocity for 3D Surface Tracking">
+  <meta property="og:description"
+        content="Project page and supplementary material for the paper Admittance-Based Tactile Control with Adaptive Forward Velocity for 3D Surface Tracking">
+  <meta property="og:url" content="URL_OF_THE_WEBSITE">
+
+  <!-- Social-media preview image -->
+  <meta property="og:image" content="static/images/img_1.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="keywords"
+        content="Tactile control, Admittance control, Surface tracking, Robot manipulation, Footwear industry, Manufacturing automation, FoundationPose, ROS 2">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <title>Admittance-Based Tactile Control with Adaptive Forward Velocity for 3D Surface Tracking</title>
 
-  <title>Grasping Force Estimation in Markerless Visuo-Tactile Sensors</title>
   <link rel="icon" type="image/x-icon" href="static/images/favicon.png">
+
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-  rel="stylesheet">
+        rel="stylesheet">
 
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="static/css/index.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
   <script src="static/js/bulma-carousel.min.js"></script>
   <script src="static/js/bulma-slider.min.js"></script>
   <script src="static/js/index.js"></script>
+
+  <!-- Small additions specific to this project page -->
+  <style>
+    .supplementary-video {
+      width: 100%;
+      border-radius: 8px;
+      background: #000;
+    }
+
+    .paper-figure {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    .figure-caption {
+      margin-top: 0.8rem;
+      text-align: center;
+    }
+
+    .section-separator {
+      margin-top: 2rem;
+    }
+
+    .resource-note {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .video-card {
+      margin-bottom: 2.5rem;
+    }
+  </style>
 </head>
+
 <body>
 
-
+  <!-- =========================================================
+       Header
+       ========================================================= -->
   <header class="hero is-small">
     <div class="hero-body">
       <div class="header_menu">
-        <a href="https://aurova-projects.github.io/" style="width: 20%;"><img src="static/images/logoAUROVA.png" alt="Logo AUROVA" class="header_image"/></a>
+
+        <a href="https://aurova-projects.github.io/" style="width: 20%;">
+          <img src="static/images/logoAUROVA.png"
+               alt="AUROVA logo"
+               class="header_image">
+        </a>
+
         <div class="header_index">
-          <a href="https://aurova-projects.github.io/" target="_self" class="home"><i class="fas fa-home" style="transform: scale(0.75) translateY(10px);"></i><strong>AUROVA</strong>&emsp;</a>&emsp;
-          <a href="https://aurova-projects.github.io/team/index.html" target="_self">Team</a>&emsp;
-          <a href="https://aurova-projects.github.io/research/index.html" target="_self">Research</a>&emsp;
-          <a href="https://aurova-projects.github.io/projects/index.html" target="_self">Projects</a>
+          <a href="https://aurova-projects.github.io/"
+             target="_self"
+             class="home">
+            <i class="fas fa-home"
+               style="transform: scale(0.75) translateY(10px);"></i>
+            <strong>AUROVA</strong>&emsp;
+          </a>&emsp;
+
+          <a href="https://aurova-projects.github.io/team/index.html"
+             target="_self">Team</a>&emsp;
+
+          <a href="https://aurova-projects.github.io/research/index.html"
+             target="_self">Research</a>&emsp;
+
+          <a href="https://aurova-projects.github.io/projects/index.html"
+             target="_self">Projects</a>
         </div>
-        <a href="https://www.ua.es/" target="_blank"  style="width: 22%;"><img src="static/images/logo-ua.jpg" alt="Logo UA" class="header_image"/></a>
+
+        <a href="https://www.ua.es/" target="_blank" style="width: 22%;">
+          <img src="static/images/logo-ua.jpg"
+               alt="University of Alicante logo"
+               class="header_image">
+        </a>
+
       </div>
     </div>
+
     <div class="hline"></div>
   </header>
 
+
+  <!-- =========================================================
+       Title, authors and main links
+       ========================================================= -->
   <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop">
+
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Grasping Force Estimation in Markerless Visuo-Tactile Sensors</h1>
+
+            <h1 class="title is-1 publication-title">
+              Admittance-Based Tactile Control with Adaptive Forward Velocity for 3D Surface Tracking
+            </h1>
+
             <div class="is-size-5 publication-authors">
-              <!-- Paper authors -->
-              <span class="author-block">
-                Julio Castaño-Amorós,
-              </span>
-              <span class="author-block">
-                Pablo Gil,
-              </span>
+              <span class="author-block">Edison Velasco*,</span>
+              <span class="author-block">Daniel Frau,</span>
+              <span class="author-block">Fernando Torres,</span>
+              <span class="author-block">Pablo Gil</span>
             </div>
 
             <div class="is-size-5 publication-authors">
-              <span class="author-block">Group of Automation, Robotics and Computer Vision (AUROVA)<br>University of Alicante</span>
+              <span class="author-block">
+                AUtomatics, RObotics and Artificial Vision Lab (AUROVA)<br>
+                University of Alicante, Alicante, Spain
+              </span>
             </div>
 
             <div class="is-size-8 publication-authors">
-              <span class="author-block"><a href="mailto:julio.ca@ua.es" target="_blank">julio.ca@ua.es</a></span>
-              <span class="author-block"><a href="mailto:pablo.gil@ua.es" target="_blank">pablo.gil@ua.es</a></span>
+              <span class="author-block">*
+                <a href="mailto:edison.velasco@ua.es">edison.velasco@ua.es</a>
+              </span>
             </div>
 
             <div class="column has-text-centered">
               <div class="publication-links">
-                    <!-- Paper link -->
-                <span class="link-block">
-                  <a href="https://ieeexplore.ieee.org/document/10740944" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              
-              <div class="column has-text-centered">
-              <div class="publication-links">
-                    <!-- Paper link -->
-                <span class="link-block">
-                  <a href="https://arxiv.org/abs/2410.22825" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              
-               <span class="link-block">
-                  <a href="https://drive.google.com/file/d/1PawPChehDrno9N-2y3GUPzb6A2acdLBl/view?usp=sharing" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="fas fa-database"></i>
-                  </span>
-                  <span>Dataset</span>
-                </a>
-              </span>
 
-            <!-- Github link -->
-            <span class="link-block">
-              <a href="https://github.com/AUROVA-LAB/applications/tree/main/app_force_estimation" target="_blank"
-                class="external-link button is-normal is-rounded is-dark">
-                <span class="icon">
-                  <i class="fab fa-github"></i>
+                <!-- Paper link will be activated once the paper is available -->
+                <span class="link-block">
+                  <a href="#"
+                     class="external-link button is-normal is-rounded is-dark"
+                     aria-disabled="true"
+                     onclick="return false;">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper (soon)</span>
+                  </a>
                 </span>
-                <span>Code</span>
-              </a>
-            </span>
+
+                <!-- Replace ROSBAGS_URL with the final Google Drive / Zenodo URL -->
+                <span class="link-block">
+                  <a href="ROSBAGS_URL"
+                     target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-database"></i>
+                    </span>
+                    <span>ROS Bags</span>
+                  </a>
+                </span>
+
+              </div>
+            </div>
 
           </div>
         </div>
+
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
-<!-- Teaser video-->
-<!-- <section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <source src="static/videos/banner_video.mp4"
-        type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
-    </div>
-  </div>
-</section> -->
-<!-- End teaser video -->
-
-<!-- Video carousel -->
-<!-- <section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Examples</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <source src="static/videos/Follow1_alltrackers.gif"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <source src="static/videos/Follow2_alltrackers.gif"
-            type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
-<!-- End video carousel -->
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
+  <!-- =========================================================
+       Abstract
+       NOTE: The current manuscript still contains the Springer
+       template placeholder abstract. Replace this text when the
+       final abstract is available.
+       ========================================================= -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-        <h2 class="title is-3">Examples of grasping force estimation</h2>
-          
-          <div class="publication-video">
-            <!-- Youtube embed code here -->
-            <iframe src="https://www.youtube.com/embed/AiXlOL-FR5M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+          <h2 class="title is-3">Abstract</h2>
+
+          <div class="content has-text-justified">
+            <p>
+              The abstract serves both as a general introduction to the topic and as a brief,
+              non-technical summary of the main results and their implications. Authors are
+              advised to check the author instructions for the journal they are submitting to
+              for word limits and if structural elements like subheadings, citations, or equations
+              are permitted.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       Method overview
+       img_1.png
+       ========================================================= -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+
+            <h2 class="title is-3">Method Overview</h2>
+
+            <div class="content has-text-justified">
+              <p>
+                The proposed framework combines vision-based object localization and
+                reference-path registration with tactile closed-loop control. FoundationPose
+                is used during the pre-contact stage to estimate the 6-DoF pose of the object
+                and register the reference waypoints in the robot workspace. Once contact is
+                established, tactile feedback regulates the normal interaction, local tool
+                alignment, and tangential progression over the surface.
+              </p>
+            </div>
+
+            <img src="static/images/overview.png"
+                 alt="Overview of the proposed tactile surface-tracking framework"
+                 class="paper-figure">
+
+            <p class="figure-caption">
+              Overview of the proposed admittance-based tactile controller with adaptive
+              tangential velocity regulation.
+            </p>
+
           </div>
         </div>
+
       </div>
     </div>
-  </div>
-</section>
-<!-- End youtube video -->
+  </section>
 
 
+  <!-- =========================================================
+       Vision-based object localization       
+       ========================================================= -->
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
 
-<!-- Paper abstract -->
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-           Tactile sensors have been used for force estimation in the past, especially Vision-Based Tactile Sensors (VBTS) have recently become a new trend due to their high spatial resolution and low cost. In this work, we have designed and implemented several approaches to estimate the normal grasping force using different types of markerless visuotactile representations obtained from VBTS. Our main goal is to determine the most appropriate visuotactile representation, based on a performance analysis during robotic grasping tasks. Our proposal has been tested on the dataset generated with our DIGIT sensors and another one obtained using GelSight Mini sensors from another state-of-the-art work. We have also tested the generalization capabilities of our best approach, called RGBmod. The results led to two main conclusions. First,
-the RGB visuotactile representation is a better input option than the depth image or a combination of the two for estimating normal grasping forces. Second, RGBmod achieved a good performance when tested on 10 unseen everyday objects in real-world scenarios, achieving an average relative error of 0.125 ± 0.153. Furthermore, we show that our proposal outperforms other works in the literature that use RGB and depth information for the same task.
-          </p>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+
+            <h2 class="title is-3">Object Pose Estimation and Initial Positioning</h2>
+
+            <div class="content has-text-justified">
+              <p>
+                Before establishing contact with the target surface, the 6-DoF pose of the
+                object is estimated from RGB-D data using FoundationPose. The estimated pose
+                is combined with the calibrated camera-to-robot transformation to register
+                the object-relative reference path in the robot base frame and define the
+                initial approach configuration of the tactile tool.
+              </p>
+            </div>
+
+            <img src="static/images/foundation_pose.jpg"
+                 alt="Vision-based object localization and reference-path registration"
+                 class="paper-figure">
+
+            <p class="figure-caption">
+              Vision-based object localization and initial reference-path registration.
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+<!-- =========================================================
+       Experiments and Results
+       img_4.png
+       video_1.mp4
+
+       This supplementary video contains the experiments carried
+       out with the shoe last and the real shoe.
+       ========================================================= -->
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+
+            <h2 class="title is-3 has-text-centered">
+              Experiments and Results
+            </h2>
+
+            <div class="content has-text-justified">
+              <p>
+                The supplementary video presents the experimental validation of the
+                proposed admittance-based tactile surface-tracking framework on footwear
+                objects. The experiments include surface tracking on a shoe last placed
+                at different poses within the robot workspace and on a real shoe upper
+                with irregular and partially deformable contact geometry.
+              </p>
+
+              <p>
+                In both cases, vision-based object localization is used during the
+                pre-contact stage to register the reference path, while tactile feedback
+                regulates the normal interaction, local tool alignment, and tangential
+                progression once contact is established.
+              </p>
+            </div>
+
+            <div class="video-card">
+              <video class="supplementary-video"
+                     controls
+                     preload="metadata">
+                <source src="static/videos/video_1.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+              </video>
+
+              <p class="figure-caption">
+                Supplementary video showing the surface-tracking experiments performed
+                with the shoe last and the real shoe.
+              </p>
+            </div>
+
+            <img src="static/images/exp2_last.png"                 
+                 class="paper-figure">
+
+            <img src="static/images/exp3_shoe.png"
+                 alt="Experimental validation with the shoe last and real shoe"
+                 class="paper-figure">
+
+            <p class="figure-caption">
+              Experimental validation of the proposed tactile surface-tracking framework
+              on footwear objects.
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       ROS bags / dataset
+       ========================================================= -->
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+
+          <h2 class="title is-3">Dataset and ROS Bags</h2>
+
+          <div class="content has-text-justified resource-note">
+            <p>
+              The ROS 2 bag files associated with the experimental validation are provided
+              as supplementary research data. They contain the measurements and robot data
+              used to analyze the surface-tracking experiments presented in the paper.
+            </p>
+
+            <p>
+              All experiments were conducted using ROS 2 Humble. Replace the link below
+              with the final public repository, Google Drive, Zenodo, or institutional
+              data-repository URL.
+            </p>
+          </div>
+
+          <div class="publication-links">
+            <span class="link-block">
+              <a href="ROSBAGS_URL"
+                 target="_blank"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fas fa-database"></i>
+                </span>
+                <span>Access ROS Bags</span>
+              </a>
+            </span>
+          </div>
+
         </div>
       </div>
+
     </div>
-  </div>
-</section>
-<!-- End paper abstract -->
+  </section>
 
 
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-        <img src="static/images/esquema.png" alt="" class="center" width="60%" height=auto/>
-        <h2 class="subtitle has-text-centered">
-          Diagram of our grasping force estimation method.
-        </h2>
-</div>
-</div>
-</section>
-<!-- End image carousel -->
-
-
-
-
-<!-- Paper poster -->
-<!-- <section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
-      </div>
-    </div>
-  </section> -->
-<!--End paper poster -->
-
-
-<!--BibTex citation -->
-  <section class="section" id="BibTeX">
+  <!-- =========================================================
+       Citation
+       Update once the paper has final bibliographic information.
+       ========================================================= -->
+  <section class="section hero is-light" id="BibTeX">
     <div class="container is-max-desktop content">
+
       <h2 class="title">BibTeX</h2>
-      <pre><code>
-@ARTICLE{10740944,
-  author={Castaño-Amoros, Julio and Gil, Pablo},
-  journal={IEEE Sensors Journal}, 
-  title={Grasping Force Estimation for Markerless Visuotactile Sensors}, 
-  year={2024},
-  volume={},
-  number={},
-  pages={1-1},
-  keywords={Force;Sensors;Grasping;Visualization;Image sensors;Three-dimensional displays;Tactile sensors;Robots;Optical sensors;Estimation;Tactile sensing;Force prediction;Grasping Force},
-  doi={10.1109/JSEN.2024.3489052}}
-    </code></pre>
+
+      <pre><code>@article{Velasco2026AdmittanceTactile,
+  author  = {Velasco, Edison and Frau, Daniel and Torres, Fernando and Gil, Pablo},
+  title   = {Admittance-Based Tactile Control with Adaptive Forward Velocity for 3D Surface Tracking},
+  journal = {The International Journal of Advanced Manufacturing Technology},
+  year    = {2026},
+  note    = {Manuscript under review}
+}</code></pre>
+
     </div>
-</section>
-<!--End BibTex citation -->
+  </section>
 
 
-<footer class="footer">
-  <div class="center">
+  <!-- =========================================================
+       Acknowledgements
+       ========================================================= -->
+  <section class="section">
+    <div class="container is-max-desktop">
 
-          <a href="http://www.aurova.ua.es/" target="_blank"
-            class="external-link button is-normal is-dark" style="margin-right: 15px;">
-            <span class="icon">
-              <img src="static/images/favicon.png" alt="AUROVA"/>
-            </span>
-          </a>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
 
-          <a href="https://github.com/AUROVA-LAB/" target="_blank"
-            class="external-link button is-normal is-dark" style="margin-right: 15px;">
-            <span class="icon">
-              <i class="fab fa-github"></i>
-            </span>
-          </a>
+          <h2 class="title is-3 has-text-centered">Acknowledgements</h2>
 
-          <a href="https://www.youtube.com/channel/UCdvrdxJmwsuiLrLtZ8XDWZw" target="_blank"
-            class="external-link button is-normal is-dark">
-            <span class="icon">
-              <i class="fab fa-youtube"></i>
-            </span>
-          </a>   
+          <div class="content has-text-justified">
+            <p>
+              The authors thank INESCOP Footwear Technological Institute, Elda,
+              Alicante, Spain, for providing the shoe lasts and shoes used in the
+              experimental validation.
+            </p>
 
-  </div>
-</footer>
+            <p>
+              This research was funded by the European Commission and FEDER through
+              the REMAIN project (S1/1.1/E0111), supported by Interreg Sudoe 2021-2027.
+            </p>
+          </div>
 
-<!-- Statcounter tracking code -->
-  
-<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+        </div>
+      </div>
 
-    <!-- End of Statcounter Code -->
+    </div>
+  </section>
 
-  </body>
-  </html>
+
+  <!-- =========================================================
+       Footer
+       ========================================================= -->
+  <footer class="footer">
+    <div class="center">
+
+      <a href="http://www.aurova.ua.es/"
+         target="_blank"
+         class="external-link button is-normal is-dark"
+         style="margin-right: 15px;">
+        <span class="icon">
+          <img src="static/images/favicon.png" alt="AUROVA">
+        </span>
+      </a>
+
+      <a href="https://github.com/AUROVA-LAB/"
+         target="_blank"
+         class="external-link button is-normal is-dark"
+         style="margin-right: 15px;">
+        <span class="icon">
+          <i class="fab fa-github"></i>
+        </span>
+      </a>
+
+      <a href="https://www.youtube.com/channel/UCdvrdxJmwsuiLrLtZ8XDWZw"
+         target="_blank"
+         class="external-link button is-normal is-dark">
+        <span class="icon">
+          <i class="fab fa-youtube"></i>
+        </span>
+      </a>
+
+    </div>
+  </footer>
+
+</body>
+</html>
